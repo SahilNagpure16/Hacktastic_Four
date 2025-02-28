@@ -1,21 +1,25 @@
 import streamlit as st
+import random
 
-def main():
-    st.set_page_config(page_title='QR Attendance System', page_icon='✅', layout='centered')
+def generate_class_code():
+    return str(random.randint(100000, 999999))
+
+def teacher_page():
+    st.title("Teacher - Manage Attendance")
     
-    st.title('QR Attendance System')
+    if st.button("Generate Class Code"):
+        class_code = generate_class_code()
+        st.success(f"Generated Class Code: {class_code}")
+        st.write("Share this code with students to join the class.")
     
-    st.write("### Select your role:")
+    uploaded_file = st.file_uploader("Upload QR Code Image to Mark Attendance", type=["png", "jpg", "jpeg"])
     
-    col1, col2 = st.columns(2)
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption="Uploaded QR Code", use_column_width=True)
+        st.success("Attendance Marked Successfully!")
     
-    with col1:
-        if st.button("Join as a Student", use_container_width=True):
-            st.success("You joined as a Student!")
-    
-    with col2:
-        if st.button("Join as a Teacher", use_container_width=True):
-            st.success("You joined as a Teacher!")
+    # Back Button using page_link
+    st.page_link("main.py", label="🔙 Back to Home", icon="🏠")
 
 if _name_ == "_main_":
-    main()
+    teacher_page()

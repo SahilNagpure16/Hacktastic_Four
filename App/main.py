@@ -1,21 +1,40 @@
+### main.py ###
 import streamlit as st
 
-def main():
-    st.set_page_config(page_title='QR Attendance System', page_icon='✅', layout='centered')
-    
-    st.title('QR Attendance System')
-    
-    st.write("### Select your role:")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("Join as a Student", use_container_width=True):
-            st.success("You joined as a Student!")
-    
-    with col2:
-        if st.button("Join as a Teacher", use_container_width=True):
-            st.success("You joined as a Teacher!")
+# Page Configuration
+st.set_page_config(page_title='QR Attendance System', page_icon='✅', layout='centered')
 
-if _name_ == "_main_":
-    main()
+# Remove Scrollbar with Custom CSS
+st.markdown(
+    """
+    <style>
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Title
+st.title('QR Attendance System')
+
+st.write("### Select your role:")
+
+# Centering Buttons
+col1, col2 = st.columns(2)
+
+with col1:
+    student_button = st.button("🎓 Join as a Student", use_container_width=True)
+
+with col2:
+    teacher_button = st.button("🧑‍🏫 Join as a Teacher", use_container_width=True)
+
+# Navigation Logic
+if student_button:
+    st.query_params.update({"page": "student"})
+    st.switch_page("pages/student.py")
+
+if teacher_button:
+    st.query_params.update({"page": "teacher"})
+    st.switch_page("pages/teacher.py")

@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-
+import streamlit as st
 
 
 def attendence(name:str,sheet_id:str):
@@ -21,7 +21,7 @@ def attendence(name:str,sheet_id:str):
         roll = student_list.index(name)
         workbook.sheet1.update_cell(roll+1,3,'Yes')
     else:
-        print("error student not found")
+        st.error("error student not found")
     
     
 

@@ -1,5 +1,7 @@
 ### main.py ###
 import streamlit as st
+import random
+
 
 # Page Configuration
 st.set_page_config(page_title='QR Attendance System', page_icon='✅', layout='centered')
@@ -38,3 +40,4 @@ if student_button:
 if teacher_button:
     st.query_params.update({"page": "teacher"})
     st.switch_page("pages/teacher.py")
+
